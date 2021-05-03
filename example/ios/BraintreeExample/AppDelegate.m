@@ -6,7 +6,7 @@
  */
 
 #import "AppDelegate.h"
-
+#import <Braintree/BTAppSwitch.h>
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
@@ -48,6 +48,8 @@ static void InitializeFlipper(UIApplication *application) {
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  
+  [BTAppSwitch setReturnURLScheme:@"com.example.reactnativebraintree.payments"];
   return YES;
 }
 
@@ -58,6 +60,29 @@ static void InitializeFlipper(UIApplication *application) {
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
+}
+
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
+  NSLog(@"test");
+  NSLog(@"%li", (long)[url.scheme localizedCaseInsensitiveCompare:@"com.example.reactnativebraintree.payments"]);
+  if ([url.scheme localizedCaseInsensitiveCompare:@"com.example.reactnativebraintree.payments"] == 0) {
+    return [BTAppSwitch handleOpenURL:url options:options];
+  }
+  return false;
+}
+
+- (void)scene:(UIScene *)scene openURLContexts:(nonnull NSSet<UIOpenURLContext *> *)URLContexts
+API_AVAILABLE(ios(13.0)){
+  for (UIOpenURLContext *context in URLContexts) {
+    NSURL *url = context.URL;
+    NSLog(@"test");
+    NSLog(@"%li", (long)[url.scheme localizedCaseInsensitiveCompare:@"com.example.reactnativebraintree.payments"]);
+    if ([url.scheme localizedCaseInsensitiveCompare:@"com.example.reactnativebraintree.payments"] == 0) {
+      [BTAppSwitch handleOpenURLContext: context];
+    }
+  }
 }
 
 @end

@@ -42,13 +42,16 @@ class BraintreeView : UIView {
     
     func showDropIn(clientTokenOrTokenizationKey: String) {
         let request = BTDropInRequest()
+        request.cardDisabled = true
+        request.paypalDisabled = true
+        request.venmoDisabled = false
         let dropIn = BTDropInController(authorization: clientTokenOrTokenizationKey, request: request)
         { (controller, result, error) in
             if (error != nil) {
                 self.onCompleteTransaction!(["error": true])
             } else if let result = result {
                 self.onCompleteTransaction!([
-                    "cancelled": result.isCancelled,
+                    "isCancelled": result.isCancelled,
                     "paymentDescription": result.paymentDescription,
                     "paymentOptionType": result.paymentOptionType,
 //                    "paymentMethod": [
