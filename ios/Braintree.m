@@ -1,13 +1,9 @@
-#import <React/RCTBridgeModule.h>
+#import "React/RCTViewManager.h"
 
-@interface RCT_EXTERN_MODULE(Braintree, NSObject)
+@interface RCT_EXTERN_MODULE(BraintreeViewManager, RCTViewManager)
 
-RCT_EXTERN_METHOD(multiply:(float)a withB:(float)b
-                 withResolver:(RCTPromiseResolveBlock)resolve
-                 withRejecter:(RCTPromiseRejectBlock)reject)
-
-RCT_EXTERN_METHOD(showDropIn:(string)clientTokenOrTokenizationKey
-                  withResolver:(RCTPromiseResolveBlock)resolve
-                  withRejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_VIEW_PROPERTY(isShown, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(clientToken, NSString)
+RCT_EXPORT_VIEW_PROPERTY(onCompleteTransaction, RCTDirectEventBlock)
 
 @end

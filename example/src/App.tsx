@@ -1,18 +1,23 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Braintree from 'react-native-braintree';
 
+const token = 'sandbox_d5ytzvpc_vb9254p26ccr5hk6';
+
+Braintree.config({ clientToken: token });
+
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
+  const [isShown, setIsShown] = useState(false);
 
-  React.useEffect(() => {
-    Braintree.multiply(3, 7).then(setResult);
+  useEffect(() => {
+    setInterval(() => {
+      setIsShown(true);
+    }, 2000);
   }, []);
-
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <Braintree isShown={isShown} />
     </View>
   );
 }

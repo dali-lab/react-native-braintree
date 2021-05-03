@@ -1,4 +1,5 @@
-import { NativeModules } from 'react-native';
+import React from 'react';
+import { requireNativeComponent, ViewStyle } from 'react-native';
 
 type BTDropInResult = {
   cancelled: boolean;
@@ -11,11 +12,30 @@ type BTDropInResult = {
   };
 };
 
-type BraintreeType = {
-  multiply(a: number, b: number): Promise<number>;
-  showDropIn(clientToken: string): Promise<BTDropInResult>;
+let token = '';
+
+type BraintreeProps = {
+  style?: ViewStyle;
+  isShown?: boolean;
 };
 
-const { Braintree } = NativeModules;
+const Braintree = (props: BraintreeProps): JSX.Element => {
+  return <BraintreeView {...props} clientToken={token} />;
+};
 
-export default Braintree as BraintreeType;
+type configProps = {
+  clientToken: string;
+};
+Braintree.config = ({ clientToken }: configProps): void => {
+  if (clientToken) token = clientToken;
+};
+
+interface BraintreePropsAndToken extends BraintreeProps {
+  clientToken: string;
+}
+
+export const BraintreeView = requireNativeComponent<BraintreePropsAndToken>(
+  'BraintreeView'
+);
+
+export default Braintree;
