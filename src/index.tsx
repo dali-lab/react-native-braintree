@@ -48,11 +48,12 @@ const Braintree = (props: BraintreeProps): JSX.Element => {
 type configProps = {
   clientToken: string;
 };
+
 Braintree.config = ({ clientToken }: configProps): void => {
   if (clientToken) token = clientToken;
 };
 
-type BraintreePropsAndToken = {
+type BraintreeViewProps = {
   style?: ViewStyle;
   isShown?: boolean;
   clientToken: string;
@@ -64,7 +65,7 @@ type BraintreePropsAndToken = {
   ) => void;
 };
 
-export const BraintreeView = requireNativeComponent<BraintreePropsAndToken>(
+const BraintreeView = requireNativeComponent<BraintreeViewProps>(
   'BraintreeView'
 );
 
