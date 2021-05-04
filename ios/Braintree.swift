@@ -1,4 +1,5 @@
 import BraintreeDropIn
+import Braintree
 
 @objc(BraintreeViewManager)
 class BraintreeViewManager: RCTViewManager {
@@ -42,21 +43,30 @@ class BraintreeView : UIView {
     
     func showDropIn(clientTokenOrTokenizationKey: String) {
         let request = BTDropInRequest()
+        request.cardDisabled = true
+        request.paypalDisabled = true
+        request.venmoDisabled = false
         let dropIn = BTDropInController(authorization: clientTokenOrTokenizationKey, request: request)
         { (controller, result, error) in
             if (error != nil) {
                 self.onCompleteTransaction!(["error": true])
             } else if let result = result {
-                self.onCompleteTransaction!([
-                    "cancelled": result.isCancelled,
+                var transaction = [
+                    "isCancelled": result.isCancelled,
                     "paymentDescription": result.paymentDescription,
-                    "paymentOptionType": result.paymentOptionType,
-//                    "paymentMethod": [
-//                        "nonce": result?.paymentMethod.nonce,
-//                        "type": result.paymentMethod!.type,
-//                        "isDefault": result.paymentMethod!.isDefault
-//                    ]
-                ])
+                    "paymentOptionType": result.paymentOptionType
+                ] as [String : Any]
+                if let paymentMethod = result.paymentMethod  {
+                    transaction["paymentMethod"] = [
+                        "nonce": paymentMethod.nonce,
+                        "type": paymentMethod.type,
+                        "isDefault": paymentMethod.isDefault,
+                        "username": (paymentMethod as! BTVenmoAccountNonce?)?.username ?? ""
+                    ] as [String : Any]
+                }
+                let deviceData = PPDataCollector.collectPayPalDeviceData()
+                transaction["deviceData"] = deviceData
+                self.onCompleteTransaction!(transaction)
             }
             controller.dismiss(animated: true, completion: nil)
         }

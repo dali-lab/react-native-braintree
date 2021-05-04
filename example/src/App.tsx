@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { StyleSheet, View } from 'react-native';
-import Braintree from 'react-native-braintree';
+import Braintree, { BTDropInResult } from 'react-native-braintree';
 
 const token = 'sandbox_d5ytzvpc_vb9254p26ccr5hk6';
 
@@ -15,9 +15,14 @@ export default function App() {
       setIsShown(true);
     }, 2000);
   }, []);
+
+  const onComplete = (result: BTDropInResult | Error) => {
+    console.log(result);
+  };
+
   return (
     <View style={styles.container}>
-      <Braintree isShown={isShown} />
+      <Braintree isShown={isShown} onCompleteTransaction={onComplete} />
     </View>
   );
 }
