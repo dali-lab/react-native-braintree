@@ -51,21 +51,19 @@ class BraintreeView : UIView {
             if (error != nil) {
                 self.onCompleteTransaction!(["error": true])
             } else if let result = result {
-                dump("test")
-                dump(result)
-//                if (result.paymentMethod? != nil) {
-//                    dump(result.paymentMethod? as String? ?? "null")
-//                }
-                self.onCompleteTransaction!([
+                var transaction = [
                     "isCancelled": result.isCancelled,
                     "paymentDescription": result.paymentDescription,
-                    "paymentOptionType": result.paymentOptionType,
-                    "paymentMethod": [
-                        "nonce": result.paymentMethod!.nonce,
-                        "type": result.paymentMethod!.type,
-                        "isDefault": result.paymentMethod!.isDefault
+                    "paymentOptionType": result.paymentOptionType
+                ] as [String : Any]
+                if let paymentMethod = result.paymentMethod  {
+                    transaction["paymentMethod"] = [
+                        "nonce": paymentMethod.nonce,
+                        "type": paymentMethod.type,
+                        "isDefault": paymentMethod.isDefault
                     ]
-                ])
+                }
+                self.onCompleteTransaction!(transaction)
             }
             controller.dismiss(animated: true, completion: nil)
         }

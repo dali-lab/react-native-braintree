@@ -5,7 +5,7 @@ export type BTDropInResult = {
   isCancelled: boolean;
   paymentDescription: string;
   paymentOptionType: number;
-  paymentMethod: {
+  paymentMethod?: {
     nonce: string;
     type: string;
     isDefault: boolean;
