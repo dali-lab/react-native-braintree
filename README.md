@@ -146,10 +146,12 @@ To edit the Kotlin files, open `example/android` in Android studio and find the 
 
 We use [release-it](https://github.com/release-it/release-it) to make it easier to publish new versions. It handles common tasks like bumping version based on semver, creating tags and releases etc.
 
-To publish new versions, run the following:
+To publish the package, you will need a .env file with a `GITHUB_TOKEN` variable set equal to a personal access token with `repo` access. 
+
+To publish new versions, run the following (and say yes to all the prompts):
 
 ```sh
-yarn release
+dotenv yarn release
 ```
 
 ## Scripts
