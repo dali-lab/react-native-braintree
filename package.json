@@ -1,5 +1,5 @@
 {
-  "name": "react-native-braintree",
+  "name": "@dali-lab/react-native-braintree",
   "version": "0.1.0",
   "description": "React Native integration for BrainTree Venmo payments.",
   "main": "lib/commonjs/index",
