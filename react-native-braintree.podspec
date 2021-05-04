@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.license      = package["license"]
   s.authors      = package["author"]
 
-  s.platforms    = { :ios => "10.0" }
+  s.platforms    = { :ios => "13.0" }
   s.source       = { :git => "https://github.com/tvergho/react-native-braintree.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,mm,swift}"
@@ -18,5 +18,5 @@ Pod::Spec.new do |s|
   s.dependency "React-Core"
   s.dependency "Braintree"
   s.dependency "Braintree/Venmo"
-  s.dependency "BraintreeDropIn"
+  s.dependency "BraintreeDropIn", "~> 8.1.4"
 end

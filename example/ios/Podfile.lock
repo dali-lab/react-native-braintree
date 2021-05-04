@@ -230,7 +230,7 @@ PODS:
   - react-native-braintree (0.1.0):
     - Braintree
     - Braintree/Venmo
-    - BraintreeDropIn
+    - BraintreeDropIn (~> 8.1.4)
     - React-Core
   - React-RCTActionSheet (0.63.4):
     - React-Core/RCTActionSheetHeaders (= 0.63.4)
@@ -406,7 +406,7 @@ SPEC CHECKSUMS:
   React-jsi: a0418934cf48f25b485631deb27c64dc40fb4c31
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
-  react-native-braintree: 3016d1344356649d0da5e2f6711692c4696aabc9
+  react-native-braintree: b99f51e8c9d7101b686fe3903dcf98088b236983
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
   React-RCTAnimation: 1bde3ecc0c104c55df246eda516e0deb03c4e49b
   React-RCTBlob: a97d378b527740cc667e03ebfa183a75231ab0f0
@@ -419,6 +419,6 @@ SPEC CHECKSUMS:
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
 
-PODFILE CHECKSUM: d71d19240754035ab9fefcb7f271f5e45a4b861a
+PODFILE CHECKSUM: c4a055147cf324aba8fb11f8bfe68d6caa534a48
 
 COCOAPODS: 1.10.1
