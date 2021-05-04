@@ -4,12 +4,14 @@ import { requireNativeComponent, ViewStyle } from 'react-native';
 export type BTDropInResult = {
   isCancelled: boolean;
   paymentDescription: string;
-  paymentOptionType: number;
+  paymentOptionType?: number;
   paymentMethod?: {
     nonce: string;
     type: string;
     isDefault: boolean;
+    username: string;
   };
+  deviceData: string;
 };
 
 let token = '';
@@ -17,7 +19,7 @@ let token = '';
 type BraintreeProps = {
   style?: ViewStyle;
   isShown?: boolean;
-  onCompleteTransaction?: (result: BTDropInResult) => void;
+  onCompleteTransaction?: (result: BTDropInResult | Error) => void;
 };
 
 const Braintree = (props: BraintreeProps): JSX.Element => {
@@ -28,6 +30,10 @@ const Braintree = (props: BraintreeProps): JSX.Element => {
     console.log(nativeEvent);
     if (props?.onCompleteTransaction && !('error' in nativeEvent))
       props.onCompleteTransaction(nativeEvent);
+    else if (props?.onCompleteTransaction && 'error' in nativeEvent)
+      props.onCompleteTransaction(
+        new Error('There was an error processing the transaction.')
+      );
   };
 
   return (

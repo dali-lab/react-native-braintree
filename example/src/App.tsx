@@ -16,7 +16,7 @@ export default function App() {
     }, 2000);
   }, []);
 
-  const onComplete = (result: BTDropInResult) => {
+  const onComplete = (result: BTDropInResult | Error) => {
     console.log(result);
   };
 
