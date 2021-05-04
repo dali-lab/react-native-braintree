@@ -60,8 +60,9 @@ class BraintreeView : UIView {
                     transaction["paymentMethod"] = [
                         "nonce": paymentMethod.nonce,
                         "type": paymentMethod.type,
-                        "isDefault": paymentMethod.isDefault
-                    ]
+                        "isDefault": paymentMethod.isDefault,
+                        "username": paymentMethod is BTVenmoAccountNonce ? (paymentMethod as! BTVenmoAccountNonce?)!.username : ""
+                    ] as [String : Any]
                 }
                 self.onCompleteTransaction!(transaction)
             }
