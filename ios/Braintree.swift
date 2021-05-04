@@ -61,9 +61,11 @@ class BraintreeView : UIView {
                         "nonce": paymentMethod.nonce,
                         "type": paymentMethod.type,
                         "isDefault": paymentMethod.isDefault,
-                        "username": paymentMethod is BTVenmoAccountNonce ? (paymentMethod as! BTVenmoAccountNonce?)!.username : ""
+                        "username": (paymentMethod as! BTVenmoAccountNonce?)?.username ?? ""
                     ] as [String : Any]
                 }
+                let deviceData = PPDataCollector.collectPayPalDeviceData()
+                transaction["deviceData"] = deviceData
                 self.onCompleteTransaction!(transaction)
             }
             controller.dismiss(animated: true, completion: nil)
