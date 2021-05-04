@@ -89,6 +89,23 @@ Braintree.config({ clientToken: YOUR_TOKEN_HERE });
 | `onCompleteTransaction` | `( result :  BTDropInResult  \|  Error )  =>   void` |         | Callback function that is triggered when the payment flow has completed. |
 
 
+### BTDropInResult
+
+```js
+type BTDropInResult = {
+  isCancelled: boolean;
+  paymentDescription: string;
+  paymentOptionType?: number;
+  paymentMethod?: {
+    nonce: string;
+    type: string;
+    isDefault: boolean;
+    username: string;
+  };
+  deviceData: string;
+};
+```
+
 ## Development workflow
 
 To get started with the project, run `yarn` in the root directory to install the required dependencies for each package:
