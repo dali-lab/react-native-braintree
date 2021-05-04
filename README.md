@@ -2,6 +2,68 @@
 
 React Native integration for BrainTree Venmo payments. Currently only has Venmo enabled and only tested with iOS.
 
+## Installation
+
+### info.plist
+You must add the following to the queries schemes allowlist in your app's `info.plist`:
+
+```xml
+<key>LSApplicationQueriesSchemes</key>
+<array>
+  <string>com.venmo.touch.v2</string>
+</array>
+```
+
+You must have a display name in your app's `info.plist` to help Venmo identify your application:
+
+```xml
+<key>CFBundleDisplayName</key>
+<string>Your App Name</string>
+```
+
+### Register URL Type
+1. In Xcode, click on your project in the Project Navigator and navigate to App Target > Info > URL Types
+2. Click [+] to add a new URL type
+3. Under URL Schemes, enter your app switch return URL scheme. This scheme must start with your app's Bundle ID and be dedicated to Braintree app switch returns. For example, if the app bundle ID is `com.your-company.your-app`, then your URL scheme could be `com.your-company.your-app.payments`.
+
+### AppDelegate.m
+Add `#import <Braintree/BTAppSwitch.h>` to the top of `AppDelegate.m`.
+
+Add to the end of the `application:didFinishLaunchingWithOptions:` implementation.
+
+```objc
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+  // other config
+
+  [BTAppSwitch setReturnURLScheme:@"com.your-company.your-app.payments"];
+  return YES;
+}
+```
+
+Add the following two methods to the end of `AppDelegate.m`, before the final `@end`.
+
+```objc
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
+  if ([url.scheme localizedCaseInsensitiveCompare:@"com.your-company.your-app.payments"] == 0) {
+    return [BTAppSwitch handleOpenURL:url options:options];
+  }
+  return false;
+}
+
+- (void)scene:(UIScene *)scene openURLContexts:(nonnull NSSet<UIOpenURLContext *> *)URLContexts
+API_AVAILABLE(ios(13.0)){
+  for (UIOpenURLContext *context in URLContexts) {
+    NSURL *url = context.URL;
+    if ([url.scheme localizedCaseInsensitiveCompare:@"com.your-company.your-app.payments"] == 0) {
+      [BTAppSwitch handleOpenURLContext: context];
+    }
+  }
+}
+```
+
 ## Usage
 
 ```js
@@ -16,6 +78,7 @@ Braintree.config({ clientToken: YOUR_TOKEN_HERE });
 />
 
 ```
+
 ## Props
 
 **Required props are marked with `*`.**
@@ -24,6 +87,7 @@ Braintree.config({ clientToken: YOUR_TOKEN_HERE });
 |-------------------------|------------------------------------------------------|---------|--------------------------------------------------------------------------|
 | `isShown`               | `bool`                                               | `false` | When true, triggers the payment dialog to show.                          |
 | `onCompleteTransaction` | `( result :  BTDropInResult  \|  Error )  =>   void` |         | Callback function that is triggered when the payment flow has completed. |
+
 
 ## Development workflow
 

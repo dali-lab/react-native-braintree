@@ -65,8 +65,6 @@ static void InitializeFlipper(UIApplication *application) {
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url
             options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
-  NSLog(@"test");
-  NSLog(@"%li", (long)[url.scheme localizedCaseInsensitiveCompare:@"com.example.reactnativebraintree.payments"]);
   if ([url.scheme localizedCaseInsensitiveCompare:@"com.example.reactnativebraintree.payments"] == 0) {
     return [BTAppSwitch handleOpenURL:url options:options];
   }
@@ -77,8 +75,6 @@ static void InitializeFlipper(UIApplication *application) {
 API_AVAILABLE(ios(13.0)){
   for (UIOpenURLContext *context in URLContexts) {
     NSURL *url = context.URL;
-    NSLog(@"test");
-    NSLog(@"%li", (long)[url.scheme localizedCaseInsensitiveCompare:@"com.example.reactnativebraintree.payments"]);
     if ([url.scheme localizedCaseInsensitiveCompare:@"com.example.reactnativebraintree.payments"] == 0) {
       [BTAppSwitch handleOpenURLContext: context];
     }
