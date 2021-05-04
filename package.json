@@ -36,13 +36,13 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/tvergho/react-native-braintree",
+  "repository": "https://github.com/dali-lab/react-native-braintree",
   "author": "Tyler Vergho <tvergho@gmail.com> (https://github.com/tvergho)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tvergho/react-native-braintree/issues"
+    "url": "https://github.com/dali-lab/react-native-braintree/issues"
   },
-  "homepage": "https://github.com/tvergho/react-native-braintree#readme",
+  "homepage": "https://github.com/dali-lab/react-native-braintree#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
