@@ -44,7 +44,8 @@
   },
   "homepage": "https://github.com/dali-lab/react-native-braintree#readme",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^11.0.0",
