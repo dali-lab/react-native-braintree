@@ -73,3 +73,23 @@ class BraintreeView : UIView {
         self.viewController?.present(dropIn!, animated: true, completion: nil)
     }
 }
+
+@objc(BraintreeMethods)
+class BraintreeMethods: NSObject {
+    @objc(getIsVenmoInstalled:withResolver:withRejecter:)
+    func getIsVenmoInstalled(token: String, resolve:@escaping RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) -> Void {
+        if (token.count == 0) {
+            resolve(false);
+        }
+        let apiClient = BTAPIClient(authorization: token)
+        if let apiClient = apiClient {
+            let venmo = BTVenmoDriver(apiClient: apiClient)
+            DispatchQueue.main.async {
+                let isAvailable = venmo.isiOSAppAvailableForAppSwitch()
+                resolve(isAvailable)
+            }
+        } else {
+            resolve(false);
+        }
+    }
+}

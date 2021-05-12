@@ -3,6 +3,14 @@
 React Native integration for BrainTree Venmo payments. Currently only has Venmo enabled and only tested with iOS.
 
 ## Installation
+### Podfile
+Before running `pod install`, add the following lines **before** `use_native_modules!` in the Podfile.
+
+```
+pod 'Braintree', :modular_headers => true
+pod 'BraintreeDropIn', '~> 8.1.4', :modular_headers => true
+pod 'react-native-braintree', :podspec => '../node_modules/@dali-lab/react-native-braintree', :modular_headers => true
+```
 
 ### info.plist
 You must add the following to the queries schemes allowlist in your app's `info.plist`:
@@ -67,7 +75,7 @@ API_AVAILABLE(ios(13.0)){
 ## Usage
 
 ```js
-import Braintree from "react-native-braintree";
+import Braintree from "@dali-lab/react-native-braintree";
 
 Braintree.config({ clientToken: YOUR_TOKEN_HERE });
 

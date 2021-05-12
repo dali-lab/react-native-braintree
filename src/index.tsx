@@ -1,5 +1,7 @@
 import React, { SyntheticEvent } from 'react';
-import { requireNativeComponent, ViewStyle } from 'react-native';
+import { requireNativeComponent, ViewStyle, NativeModules } from 'react-native';
+
+const { BraintreeMethods } = NativeModules;
 
 export type BTDropInResult = {
   isCancelled: boolean;
@@ -51,6 +53,11 @@ type configProps = {
 
 Braintree.config = ({ clientToken }: configProps): void => {
   if (clientToken) token = clientToken;
+};
+
+Braintree.getIsVenmoInstalled = async (): Promise<boolean> => {
+  if (!token) return false;
+  return await BraintreeMethods.getIsVenmoInstalled(token);
 };
 
 type BraintreeViewProps = {

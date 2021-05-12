@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { StyleSheet, View } from 'react-native';
-import Braintree, { BTDropInResult } from 'react-native-braintree';
+import Braintree, { BTDropInResult } from '@dali-lab/react-native-braintree';
 
 const token = 'sandbox_d5ytzvpc_vb9254p26ccr5hk6';
 
@@ -14,6 +14,7 @@ export default function App() {
     setInterval(() => {
       setIsShown(true);
     }, 2000);
+    Braintree.getIsVenmoInstalled().then((result) => console.log(result));
   }, []);
 
   const onComplete = (result: BTDropInResult | Error) => {
