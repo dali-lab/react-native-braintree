@@ -79,6 +79,9 @@ import Braintree from "@dali-lab/react-native-braintree";
 
 Braintree.config({ clientToken: YOUR_TOKEN_HERE });
 
+// Static function that returns a boolean for whether the Venmo app is currently available on the user's device.
+const isVenmoInstalled = await Braintree.getIsVenmoInstalled();
+
 // ...
 <Braintree 
   isShown={isShown} 
